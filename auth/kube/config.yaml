@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: auth-config
+  labels:
+    app: auth-config
+data:
+    TYPEORM_HOST: patronidemoauth
+    TYPEORM_PORT: "5432"
+    TYPEORM_USERNAME: postgres
+    TYPEORM_PASSWORD: zalando
+    TYPEORM_DATABASE: postgres
+    TEST: ramin

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-gateway-config
+  labels:
+    app: api-gateway-config
+data:
+    TYPEORM_HOST: patronidemo
+    TYPEORM_PORT: "5432"
+    TYPEORM_USERNAME: postgres
+    TYPEORM_PASSWORD: zalando
+    TYPEORM_DATABASE: postgres

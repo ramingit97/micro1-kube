@@ -1,0 +1,23 @@
+Change to docker environment - eval $(minikube docker-env)
+
+0) patronic commands; 
+psql -h localhost -p 5432 -U postgres
+
+\dt
+
+SELECT * FROM USERS;
+
+
+1) cd postgres-kube
+    docker build -t patroni .
+    kubectl apply -f volume.yaml
+
+2) cd auth/kube
+    docker build -t auth-service . -f .Dockerfile
+    kubectl apply -f config.yaml 
+    kubectl apply -f postgres2.yaml
+    kubectl apply -f deployment.yaml
+3) cd api-gateway
+    docker build -t api-gateway .
+    kubectl apply -f config.yaml 
+    kubectl apply -f deployment.yaml
