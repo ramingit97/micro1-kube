@@ -5,7 +5,7 @@ psql -h localhost -p 5432 -U postgres
 
 \dt
 
-SELECT * FROM USERS; 
+SELECT * FROM USERS;  
 
 
 1) cd postgres-kube
