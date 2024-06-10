@@ -21,3 +21,9 @@ SELECT * FROM USERS;
     docker build -t api-gateway .
     kubectl apply -f config.yaml 
     kubectl apply -f deployment.yaml
+
+4) cd products
+    docker build -t product-service .
+    kubectl apply -f config.yaml 
+    kubectl apply -f postgres2.yaml
+    kubectl apply -f deployment.yaml 

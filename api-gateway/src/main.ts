@@ -17,7 +17,7 @@ async function bootstrap() {
 
   app.useGlobalFilters(new AllRpcExceptionsFilter())
   await app.listen(3000,()=>{
-    console.log("API GATEWAY IS RUNNING ON PORT =>   ", 3000) 
+    console.log("API GATEWAY IS RUNNING ON PORT =>  888 ", 3000) 
   });
 }
 bootstrap();

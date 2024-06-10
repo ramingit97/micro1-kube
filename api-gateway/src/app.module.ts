@@ -16,53 +16,53 @@ import { MySocketGateway } from './gateways/socker.gateway';
 
 @Module({
   imports: [  
-    CacheModule.register({ isGlobal: true }),
-    EventEmitterModule.forRoot({global:true}),
-    ClientsModule.register([
-      {
-        name: 'RESTAURANT_SERVICE', 
-        transport: Transport.KAFKA, 
+  //   CacheModule.register({ isGlobal: true }),
+  //   EventEmitterModule.forRoot({global:true}),
+  //   ClientsModule.register([
+  //     {
+  //       name: 'RESTAURANT_SERVICE', 
+  //       transport: Transport.KAFKA, 
         
-        options: { 
-          client: {
-            clientId: 'restaurant',
-            brokers: [
-              'kafka-0.kafka-svc.default.svc.cluster.local:9092',
-              'kafka-1.kafka-svc.default.svc.cluster.local:9092',
-              'kafka-2.kafka-svc.default.svc.cluster.local:9092',
-            ],
-          },
-          consumer: {
-            groupId: 'restaurant-consumer',
-            allowAutoTopicCreation:false
-          },
-        },
-      },
-      {
-        name: 'RESTAURANT_SERVICE_TCP',
-        transport: Transport.TCP,
-        options: {
-          host: 'restaurant-service',
-          port: 4000
-        },
-      },
-      {
-        name: 'AUTH_SERVICE',
-        transport: Transport.TCP,
-        options: {
-          host: 'auth-service',
-          port: 5000
-        },
-      },
-    ],
-  ), 
-  UsersModule,
-  // ProductsModule,
-  OrdersModule
+  //       options: { 
+  //         client: {
+  //           clientId: 'restaurant',
+  //           brokers: [
+  //             'kafka-0.kafka-svc.default.svc.cluster.local:9092',
+  //             'kafka-1.kafka-svc.default.svc.cluster.local:9092',
+  //             'kafka-2.kafka-svc.default.svc.cluster.local:9092',
+  //           ],
+  //         },
+  //         consumer: {
+  //           groupId: 'restaurant-consumer',
+  //           allowAutoTopicCreation:false
+  //         },
+  //       },
+  //     },
+  //     {
+  //       name: 'RESTAURANT_SERVICE_TCP',
+  //       transport: Transport.TCP,
+  //       options: {
+  //         host: 'restaurant-service',
+  //         port: 4000
+  //       },
+  //     },
+  //     {
+  //       name: 'AUTH_SERVICE',
+  //       transport: Transport.TCP,
+  //       options: {
+  //         host: 'auth-service',
+  //         port: 5000
+  //       },
+  //     },
+  //   ],
+  // ), 
+  // UsersModule,
+  ProductsModule,
+  // OrdersModule
   ],
 
   controllers: [AppController],
-  providers: [AppService,
+  providers: [AppService, 
     // {
     //   provide: APP_GUARD,
     //   useClass: AuthGuard,

@@ -1,6 +1,6 @@
 FROM node:20
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
 COPY package*.json ./
 
@@ -8,13 +8,6 @@ RUN npm install
 
 COPY . .
 
-# Copy the entrypoint script to the container
-# COPY docker-entrypoint.sh .
+RUN npm install -g nodemon
 
-# Make the entrypoint script executable
-# RUN chmod +x docker-entrypoint.sh
-# RUN chmod 777 docker-entrypoint.sh
-
-# Specify the entrypoint script
-# ENTRYPOINT ["sh", "/app/docker-entrypoint.sh"]
-CMD [ "npm", "run", "start:dev" ]
+CMD ["nodemon", "--watch", "src", "--exec", "npm run start:dev"]
