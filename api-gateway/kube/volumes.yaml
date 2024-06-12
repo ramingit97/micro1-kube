@@ -2,6 +2,7 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: api-gateway-pv
+  namespace: development
 spec:
   capacity:
     storage: 2Gi
@@ -14,6 +15,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: api-gateway-pvc
+  namespace: development
 spec:
   accessModes:
     - ReadWriteMany

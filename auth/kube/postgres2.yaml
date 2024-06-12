@@ -2,10 +2,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: patronidemo-config
+  name: patronidemoauth-config
   labels:
     application: patroni
     cluster-name: patronidemoauth
+    namespace: development
 spec:
   clusterIP: None
 
@@ -14,6 +15,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: &cluster_name patronidemoauth
+  namespace: development
   labels:
     application: patroni
     cluster-name: *cluster_name
@@ -59,9 +61,7 @@ spec:
             fieldRef:
               fieldPath: status.podIP
         - name: PATRONI_KUBERNETES_NAMESPACE
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace
+          value: 'development'
         - name: PATRONI_KUBERNETES_BYPASS_API_SERVICE
           value: 'true'
         - name: PATRONI_KUBERNETES_USE_ENDPOINTS
@@ -99,27 +99,13 @@ spec:
       terminationGracePeriodSeconds: 0
       volumes:
       - name: pgdata
-        emptyDir: {}
-#  volumeClaimTemplates:
-#  - metadata:
-#      labels:
-#        application: spilo
-#        spilo-cluster: *cluster_name
-#      annotations:
-#        volume.alpha.kubernetes.io/storage-class: anything
-#      name: pgdata
-#    spec:
-#      accessModes:
-#      - ReadWriteOnce
-#      resources:
-#        requests:
-#          storage: 5Gi
 
 ---
 apiVersion: v1
 kind: Endpoints
 metadata:
   name: &cluster_name patronidemoauth
+  namespace: development
   labels:
     application: patroni
     cluster-name: *cluster_name
@@ -130,6 +116,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: &cluster_name patronidemoauth
+  namespace: development
   labels:
     application: patroni
     cluster-name: *cluster_name
@@ -144,6 +131,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: patronidemoauth-repl
+  namespace: development
   labels:
     application: patroni
     cluster-name:  &cluster_name patronidemoauth
@@ -163,6 +151,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: &cluster_name patronidemoauth
+  namespace: development
   labels:
     application: patroni
     cluster-name: *cluster_name
@@ -170,112 +159,3 @@ type: Opaque
 data:
   superuser-password: emFsYW5kbw==
   replication-password: cmVwLXBhc3M=
-
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: patronidemo
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: patronidemo
-rules:
-- apiGroups:
-  - ""
-  resources:
-  - configmaps
-  verbs:
-  - create
-  - get
-  - list
-  - patch
-  - update
-  - watch
-  # delete and deletecollection are required only for 'patronictl remove'
-  - delete
-  - deletecollection
-- apiGroups:
-  - ""
-  resources:
-  - endpoints
-  verbs:
-  - get
-  - patch
-  - update
-  # the following three privileges are necessary only when using endpoints
-  - create
-  - list
-  - watch
-  # delete and deletecollection are required only for for 'patronictl remove'
-  - delete
-  - deletecollection
-- apiGroups:
-  - ""
-  resources:
-  - pods
-  verbs:
-  - get
-  - list
-  - patch
-  - update
-  - watch
-# The following privilege is only necessary for creation of headless service
-# for patronidemo-config endpoint, in order to prevent cleaning it up by the
-# k8s master. You can avoid giving this privilege by explicitly creating the
-# service like it is done in this manifest (lines 2..10)
-- apiGroups:
-  - ""
-  resources:
-  - services
-  verbs:
-  - create
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: patronidemo
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: patronidemo
-subjects:
-- kind: ServiceAccount
-  name: patronidemo
-
-# Following privileges are only required if deployed not in the "default"
-# namespace and you want Patroni to bypass kubernetes service
-# (PATRONI_KUBERNETES_BYPASS_API_SERVICE=true)
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: patroni-k8s-ep-access
-rules:
-- apiGroups:
-  - ""
-  resources:
-  - endpoints
-  resourceNames:
-  - kubernetes
-  verbs:
-  - get
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: patroni-k8s-ep-access
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: patroni-k8s-ep-access
-subjects:
-- kind: ServiceAccount
-  name: patronidemo
-# The namespace must be specified explicitly.
-# If deploying to the different namespace you have to change it.
-  namespace: default

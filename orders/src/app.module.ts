@@ -21,7 +21,7 @@ import { Admin, Kafka } from 'kafkajs';
   controllers: [AppController],
   providers: [AppService],
 })
-
+  
 
 export class AppModule implements OnModuleInit {
   async onModuleInit() {
@@ -29,9 +29,9 @@ export class AppModule implements OnModuleInit {
       clientId: 'order',
       brokers: 
       [
-        'kafka-0.kafka-svc.default.svc.cluster.local:9092',
-        'kafka-1.kafka-svc.default.svc.cluster.local:9092',
-        'kafka-2.kafka-svc.default.svc.cluster.local:9092',
+        'kafka-0.kafka-svc.development.svc.cluster.local:9092',
+        'kafka-1.kafka-svc.development.svc.cluster.local:9092',
+        'kafka-2.kafka-svc.development.svc.cluster.local:9092',
       ],
     });
 

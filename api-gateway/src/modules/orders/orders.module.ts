@@ -28,9 +28,9 @@ import { UsersModule } from '../users/users.module';
           client: {
             clientId: 'order',
             brokers: [
-              'kafka-0.kafka-svc.default.svc.cluster.local:9092',
-              'kafka-1.kafka-svc.default.svc.cluster.local:9092',
-              'kafka-2.kafka-svc.default.svc.cluster.local:9092',
+              'kafka-0.kafka-svc.development.svc.cluster.local:9092',
+              'kafka-1.kafka-svc.development.svc.cluster.local:9092',
+              'kafka-2.kafka-svc.development.svc.cluster.local:9092',
             ],
           },
           // producerOnlyMode:true,
@@ -54,7 +54,11 @@ import { UsersModule } from '../users/users.module';
         options: {
           client: {
             clientId: 'product',
-            brokers: ['kafka-0:9092', 'kafka-1:9092'],
+            brokers: [
+              'kafka-0.kafka-svc.development.svc.cluster.local:9092',
+              'kafka-1.kafka-svc.development.svc.cluster.local:9092',
+              'kafka-2.kafka-svc.development.svc.cluster.local:9092',
+            ],
           },
           consumer: {
             groupId: 'product-consumer',

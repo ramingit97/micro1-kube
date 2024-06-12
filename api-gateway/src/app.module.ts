@@ -16,12 +16,12 @@ import { MySocketGateway } from './gateways/socker.gateway';
 
 @Module({
   imports: [  
-  //   CacheModule.register({ isGlobal: true }),
-  //   EventEmitterModule.forRoot({global:true}),
+    CacheModule.register({ isGlobal: true }),
+    EventEmitterModule.forRoot({global:true}),
   //   ClientsModule.register([
   //     {
   //       name: 'RESTAURANT_SERVICE', 
-  //       transport: Transport.KAFKA, 
+  //       transport: Transport.KAFKA,  
         
   //       options: { 
   //         client: {
@@ -56,9 +56,9 @@ import { MySocketGateway } from './gateways/socker.gateway';
   //     },
   //   ],
   // ), 
-  // UsersModule,
+  UsersModule,
   ProductsModule,
-  // OrdersModule
+  OrdersModule
   ],
 
   controllers: [AppController],

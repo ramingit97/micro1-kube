@@ -23,9 +23,9 @@ async function bootstrap() {
         client: {
           clientId: `order`,
           brokers: [
-            'kafka-0.kafka-svc.default.svc.cluster.local:9092',
-            'kafka-1.kafka-svc.default.svc.cluster.local:9092',
-            'kafka-2.kafka-svc.default.svc.cluster.local:9092',
+            'kafka-0.kafka-svc.development.svc.cluster.local:9092',
+            'kafka-1.kafka-svc.development.svc.cluster.local:9092',
+            'kafka-2.kafka-svc.development.svc.cluster.local:9092',
           ],
         },
         consumer: {

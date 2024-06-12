@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: auth-config
+  namespace: development
   labels:
     app: auth-config
 data:

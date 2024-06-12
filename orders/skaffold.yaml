@@ -1,0 +1,15 @@
+apiVersion: skaffold/v4beta11
+kind: Config
+metadata:
+  name: order-service
+build:
+  artifacts:
+    - image: order-service
+      docker:
+        dockerfile: Dockerfile
+manifests:
+  rawYaml:
+    - kube/config.yaml
+    - kube/postgres2.yaml
+    - kube/deployment.yaml
+

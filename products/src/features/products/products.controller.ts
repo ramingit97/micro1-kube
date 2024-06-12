@@ -22,7 +22,7 @@ export class ProductsController {
   @MessagePattern('product_find')
   async findOne(@Payload() id: string) {
     return await this.productsService.findOne(id);
-  }
+  } 
 
   @MessagePattern('product_update')
   async update(@Payload() data: {id: string , product: UpdateProductDto}) {

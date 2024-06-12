@@ -39,6 +39,8 @@ export class ProductsService {
   }
 
   async checkCount(products: CheckProductCountDto[]) {
+    console.log('products 333',products);
+    
     let ids = products.map(x => x.id);
     let res = await this.productRepo.checkCount(ids);
 
