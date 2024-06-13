@@ -10,7 +10,7 @@ import { Mutex } from 'async-mutex'
 import { ILoginResponse } from 'src/store/features/auth/AuthApi';
 import { logout } from './reducers/UserSlice';
 
-export const API_URL = "http://localhost:3000/api/"
+export const API_URL = "http://192.168.49.2:30677/api"
 const mutex = new Mutex()
 const baseQuery = fetchBaseQuery({ baseUrl: API_URL,
   prepareHeaders(headers, api) {

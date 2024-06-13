@@ -26,6 +26,7 @@ export class AuthGuard implements CanActivate {
   public async canActivate(context: ExecutionContext): Promise<boolean> {
 
     try {
+      console.log('11111');
       // const secured = this.reflector.get<string[]>(
       //   'secured',
       //   context.getClass(),
@@ -38,8 +39,15 @@ export class AuthGuard implements CanActivate {
       // }
 
       const request = context.switchToHttp().getRequest();
+      console.log('222');
       const refresh_token = request.cookies.refresh_token;
+      console.log('3333')
       const access_token = this.extractTokenFromHeader(request);
+
+
+      console.log('refresh_token',refresh_token);
+      console.log('access_token',access_token);
+      
 
 
       const cachedData = await this.cacheService.get(
@@ -61,6 +69,8 @@ export class AuthGuard implements CanActivate {
           refresh_token
         }),
       );
+
+      console.log('userInfo',userInfo)
 
 
       if (!userInfo) {
