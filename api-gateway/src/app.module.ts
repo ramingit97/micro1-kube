@@ -13,9 +13,11 @@ import { CreateOrderSaga } from './usecases/order/order.saga';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { Admin, Kafka } from 'kafkajs';
 import { MySocketGateway } from './gateways/socker.gateway';
+import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 
 @Module({
   imports: [  
+    PrometheusModule.register(),
     CacheModule.register({ isGlobal: true }),
     EventEmitterModule.forRoot({global:true}),
   //   ClientsModule.register([
@@ -57,8 +59,8 @@ import { MySocketGateway } from './gateways/socker.gateway';
   //   ],
   // ), 
   UsersModule,
-  ProductsModule,
-  OrdersModule
+  // ProductsModule,
+  // OrdersModule
   ],
 
   controllers: [AppController],

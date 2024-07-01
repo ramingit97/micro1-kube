@@ -5,6 +5,8 @@ psql -h localhost -p 5432 -U postgres
 
 \dt
 
+kubectl config set-context --current --namespace=development
+
 SELECT * FROM USERS;   
 
 
@@ -26,4 +28,12 @@ SELECT * FROM USERS;
     docker build -t product-service .
     kubectl apply -f config.yaml 
     kubectl apply -f postgres2.yaml
-    kubectl apply -f deployment.yaml 
+    kubectl apply -f deployment.yaml
+
+
+
+
+ #Grafana
+
+ #1 Get secret for username: admin
+ kubectl get secret nestjs-metrics-grafana -o jsonpath="{.data.admin-password}" | base64 --decode; echo    
